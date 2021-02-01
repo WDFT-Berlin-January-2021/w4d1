@@ -130,7 +130,7 @@ const reversedUppercase = [...str.toUpperCase()].reverse()
 // console.log(reversedUppercase); // [ '!', 'D', 'L', 'R', 'O', 'W', ' ', 'O', 'L', 'L', 'E', 'H' ]
 // console.log('hello');
 
-// Arrow Syntax
+// Arrow Functions
 
 const nums = [1, 2, 3, 4, 5];
 
@@ -151,6 +151,9 @@ const evens = nums.filter(number => number % 2 === 0)
 // }
 // this as an arrow function
 
+// if you want to write a function that is not a callback as
+// an arrow function then it has to be a function expression
+
 const sumNums = (a, b) => a + b
 
 
@@ -158,4 +161,72 @@ const sumNums = (a, b) => a + b
 const names = ['kevin', 'anna', 'felix'];
 // turn all names to uppercase using an arrow function as a callback
 const upperCased = names.map(name => name.toUpperCase())
-console.log(upperCased);
+// console.log(upperCased);
+
+function createRandomNumber(min, max) {
+    return new Promise((resolve, reject) => {
+        if (arguments.length !== 2) {
+            return reject(new Error('Invalid number of arguments'));
+        }
+        setTimeout(() => {
+            resolve(Math.floor(Math.random() * (max - min + 1) + min))
+        }, 3000);
+    });
+}
+
+// Promises 
+
+// A Promise is a JavaScript object representing 
+// the eventual completion or failure of an asynchronous operation
+
+// createRandomNumber(1).then(function (data) {
+//     console.log(data)
+// }).catch(function (err) {
+//     console.log('The following error has ocurred: ', err.message);
+// });
+
+// async await
+
+async function getNumber() {
+    try {
+        const number = await createRandomNumber(4);
+        console.log(number);
+    } catch (error) {
+        console.log('The following error has ocurred: ', error.message);
+    }
+}
+
+// getNumber()
+
+
+// this and arrow functions
+
+
+class Person {
+    constructor() {
+        this.age = 0;
+    }
+    growUp() {
+        // console.log(this)
+        // this could be a fix
+        // const that = this;
+
+        // just use an arrow function for 'this' to have the right context
+        setInterval(() => {
+            this.age++
+            console.log(this.age)
+        }, 1000)
+    }
+}
+
+const p = new Person();
+p.growUp();
+
+
+
+
+
+
+
+
+
