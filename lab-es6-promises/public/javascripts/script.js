@@ -16,6 +16,7 @@ addFood(steak[0], '#steak', () => {
             addFood(steak[6], '#steak', () => {
               addFood(steak[7], '#steak', () => {
                 console.log('list is finished');
+                document.querySelector('#table').innerHTML += `<img src="public/images/steak.jpg" alt=""/>`
               })
             })
           })
@@ -29,14 +30,47 @@ addFood(steak[0], '#steak', () => {
 
 // Iteration 2 using `.then()`
 addFood(mashPotatoes[0], '#mashPotatoes').then(() => {
-  // ... your code here
-  addFood(mashPotatoes[1], '#mashPotatoes')
+  addFood(mashPotatoes[2], '#mashPotatoes').then(() => {
+    addFood(mashPotatoes[3], '#mashPotatoes').then(() => {
+      addFood(mashPotatoes[4], '#mashPotatoes').then(() => {
+        document.querySelector('#table').innerHTML += `<img src="public/images/mashPotatoes.jpg" alt=""/>`
+      })
+    })
+  })
 });
 
 // Iteration 3 using async and await
 
-async function makeFood(step) {
-  // ... your code here
-
+async function makeFood(steps) {
+  for (let step of steps) {
+    await addFood(step, '#brusselSprouts');
+  }
+  document.querySelector('#table').innerHTML += `<img src="public/images/brusselSprouts.jpg" alt="sprouts"/>`
 }
-makeFood(eachStep);
+
+makeFood(brusselSprouts, '#brusselSprouts');
+
+// Bonus 1: Add all the images - already added above
+
+// Bonus 2:
+// use Promise.all() - comment out line 52 
+// make the async makeFood dynamic - we add a second parameter id
+
+/*
+
+async function makeFood(steps, id) {
+  for (const step of steps) {
+    await addFood(step, id);
+  }
+  document.querySelector('#table').innerHTML += `<img src="public/images/${id.replace('#', '')}.jpg" />`;
+}
+
+
+Promise.all([
+  makeFood(steak, '#steak'),
+  makeFood(brusselSprouts, '#brusselSprouts'),
+  makeFood(mashPotatoes, '#mashPotatoes')
+]).then(() => {
+  document.body.innerHTML += `<button onclick="new Audio('public/media/dinnerIsServed.mp3').play()">Dinner is served.</button>`;
+});
+*/
